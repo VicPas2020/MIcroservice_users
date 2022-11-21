@@ -39,7 +39,7 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_hard_skills",
+            name = "user_hard_skills",schema = "users_scheme",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "hard_skill_id") }
     )
@@ -48,17 +48,68 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_subscriptions",
+            name = "user_subscriptions",schema = "users_scheme",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "subscriber_id") }
     )
     Set<User> subscribers;
 
 
+    public UUID getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public Boolean getGender() {
+        return gender;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public String getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public String getAvatarLink() {
+        return avatarLink;
+    }
+
+    public String getPersonalInfo() {
+        return personalInfo;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
     public Set<HardSkills> getSkills() {
         return skills;
     }
-
 
     public Set<User> getSubscribers() {
         return subscribers;
