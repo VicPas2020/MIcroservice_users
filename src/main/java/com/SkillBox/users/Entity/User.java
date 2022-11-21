@@ -27,14 +27,17 @@ public class User {
     @Column(name = "gender")
     Boolean gender;
     String  birthday; // maybe Date
-    String  currentLocation;
+    @Column(name = "currentlocation" )
+            String  currentLocation;
+    @Column(name = "avatarlink" )
     String  avatarLink;
+    @Column(name = "personalinfo" )
     String  personalInfo;
     String  nickname;
     String  email;
     String  phone;
     @Column(name = "isdeleted")
-    Boolean isDeleted;
+    Boolean isDeleted = false;
 
 
     @ManyToMany(fetch = FetchType.EAGER)

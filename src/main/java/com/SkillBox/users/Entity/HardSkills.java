@@ -10,7 +10,7 @@ public class HardSkills {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     UUID id;
-    @Column(name = "hardskill")
+    @Column(name = "hard_skill")
     String hardSkill;
 
     public UUID getId() {
