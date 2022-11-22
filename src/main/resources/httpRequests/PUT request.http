@@ -1,0 +1,22 @@
+PUT /users HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "id":"039fb3b6-6693-11ed-9022-0242ac120000",
+  "firstName":"Petrova",
+  "lastName":"Ivanka",
+  "middleName":"Ivanovna",
+  "gender":false,
+  "birthday":"01.01.2002",
+  "currentLocation":"Moscow City",
+  "avatarLink":"http://avatars.com/random/222",
+  "personalInfo":"O, NO!",
+  "nickname":"Ivanka",
+  "email":"ivanka@mail.ru",
+  "phone":"+7(949)840-49-61",
+  "isdeleted":false
+}
+
+
+
