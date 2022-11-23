@@ -5,6 +5,7 @@ import com.SkillBox.users.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,21 +23,21 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-
+    @Transactional
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
-
+    @Transactional
     public Optional<User> findUserById(UUID uuid) {
         return userRepository.findById(uuid);
     }
 
-
+    @Transactional
     public void saveUser(User user) {
         userRepository.save(user);
     }
 
-
+    @Transactional
     public void updateUser(User user) throws Exception {
 
         if(isUserExists(user.getId())) {
@@ -45,7 +46,7 @@ public class UserService {
             throw new Exception("User not found");
         }
     }
-
+    @Transactional
     public void deleteUser(UUID uuid) throws Exception {
 
         if(isUserExists(uuid)) {
