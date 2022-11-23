@@ -45,8 +45,8 @@ public class UserController {
         return new ResponseEntity<>("Saved OK UserId: " + user.getId(), HttpStatus.OK);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateUser(@RequestBody User user) {
+    @PutMapping(path = "/{uuid}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateUser(@RequestBody User user, @PathVariable UUID uuid) {
 
         try {
             userService.updateUser(user);
