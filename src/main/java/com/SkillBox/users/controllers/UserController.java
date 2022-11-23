@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,8 +33,7 @@ public class UserController {
     public ResponseEntity<String> getUserById(@PathVariable UUID uuid) {
 
         Optional<User> byId = userService.findUserById(uuid);
-
-        return byId.map(user -> new ResponseEntity<>("User: " + user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>("User: " + uuid, HttpStatus.NOT_FOUND));
+        return byId.map(user -> new ResponseEntity<>("" + user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>("User: " + uuid, HttpStatus.NOT_FOUND));
 
     }
 
