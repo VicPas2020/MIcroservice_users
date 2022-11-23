@@ -1,6 +1,5 @@
 package com.SkillBox.users.Entity;
 
-
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -19,44 +18,106 @@ public class User {
 
     UUID id;
     @Column(name = "firstname")
-    String  firstName;
+    String firstName;
     @Column(name = "lastname")
-    String  lastName;
+    String lastName;
     @Column(name = "middlename")
-    String  middleName;
+    String middleName;
     @Column(name = "gender")
     Boolean gender;
-    String  birthday; // maybe Date
-    @Column(name = "currentlocation" )
-            String  currentLocation;
-    @Column(name = "avatarlink" )
-    String  avatarLink;
-    @Column(name = "personalinfo" )
-    String  personalInfo;
-    String  nickname;
-    String  email;
-    String  phone;
+    String birthday; // maybe Date
+    @Column(name = "currentlocation")
+    String currentLocation;
+    @Column(name = "avatarlink")
+    String avatarLink;
+    @Column(name = "personalinfo")
+    String personalInfo;
+    String nickname;
+    String email;
+    String phone;
     @Column(name = "isdeleted")
     Boolean isDeleted = false;
 
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_hard_skills",schema = "users_scheme",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "hard_skill_id") }
+            name = "user_hard_skills", schema = "users_scheme",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "hard_skill_id")}
     )
     Set<HardSkills> skills;
 
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_subscriptions",schema = "users_scheme",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "subscriber_id") }
+            name = "user_subscriptions", schema = "users_scheme",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "subscriber_id")}
     )
     Set<User> subscribers;
 
+    public User() {
+
+    }
+
+    public User(UUID id,
+                String firstName,
+                String lastName,
+                String middleName,
+                Boolean gender,
+                String birthday,
+                String currentLocation,
+                String avatarLink,
+                String personalInfo,
+                String nickname,
+                String email,
+                String phone,
+                Boolean isDeleted) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.currentLocation = currentLocation;
+        this.avatarLink = avatarLink;
+        this.personalInfo = personalInfo;
+        this.nickname = nickname;
+        this.email = email;
+        this.phone = phone;
+        this.isDeleted = isDeleted;
+    }
+
+    public User(String firstName, String lastName, String middleName, Boolean gender, String birthday, String currentLocation, String avatarLink, String personalInfo, String nickname, String email, String phone, Boolean isDeleted) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.currentLocation = currentLocation;
+        this.avatarLink = avatarLink;
+        this.personalInfo = personalInfo;
+        this.nickname = nickname;
+        this.email = email;
+        this.phone = phone;
+        this.isDeleted = isDeleted;
+    }
+
+    public User(String firstName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.currentLocation = currentLocation;
+        this.avatarLink = avatarLink;
+        this.personalInfo = personalInfo;
+        this.nickname = nickname;
+        this.email = email;
+        this.phone = phone;
+        this.skills = skills;
+        this.subscribers = subscribers;
+        this.isDeleted = isDeleted;
+    }
 
     public UUID getId() {
         return id;
