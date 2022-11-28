@@ -13,6 +13,14 @@ public class HardSkills {
     @Column(name = "hard_skill")
     String hardSkill;
 
+    public HardSkills(UUID id, String hardSkill) {
+        this.id = id;
+        this.hardSkill = hardSkill;
+    }
+
+    public HardSkills() {
+    }
+
     public UUID getId() {
         return id;
     }
