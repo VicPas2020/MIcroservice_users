@@ -16,27 +16,27 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    UUID id;
+    private UUID id;
     @Column(name = "firstname")
-    String firstName;
+    private String firstName;
     @Column(name = "lastname")
-    String lastName;
+    private String lastName;
     @Column(name = "middlename")
-    String middleName;
+    private String middleName;
     @Column(name = "gender")
-    Boolean gender;
-    String birthday; // maybe Date
+    private Boolean gender;
+    private String birthday; // maybe Date
     @Column(name = "currentlocation")
-    String currentLocation;
+    private String currentLocation;
     @Column(name = "avatarlink")
-    String avatarLink;
+    private String avatarLink;
     @Column(name = "personalinfo")
-    String personalInfo;
-    String nickname;
-    String email;
-    String phone;
+    private String personalInfo;
+    private String nickname;
+    private String email;
+    private String phone;
     @Column(name = "isdeleted")
-    Boolean isDeleted = false;
+    private Boolean isDeleted = false;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -44,7 +44,7 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "hard_skill_id")}
     )
-    Set<HardSkills> skills;
+    private Set<HardSkills> skills;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -52,7 +52,7 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "subscriber_id")}
     )
-    Set<User> subscribers;
+    private Set<User> subscribers;
 
     public User() {
 
