@@ -1,6 +1,8 @@
 package com.SkillBox.users.controllers;
 
 import com.SkillBox.users.Entity.User;
+import com.SkillBox.users.dto.UserDTO;
+import com.SkillBox.users.mappers.UserMapper;
 import com.SkillBox.users.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,9 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/users")
@@ -24,8 +24,12 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    final
+    UserMapper userMapper;
+
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @Operation(summary = "Получение списка всех пользователей")
@@ -38,9 +42,15 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Users not found",
                     content = @Content) })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getAllUsers() {
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+
         List<User> all = userService.findAllUsers();
-        return new ResponseEntity<>("Users: " + all, HttpStatus.OK);
+        List<UserDTO> allDto = new ArrayList<>();
+
+        for (User dto: all) {
+            allDto.add(userMapper.userToDTO(dto));
+        }
+        return new ResponseEntity<>(allDto, HttpStatus.OK);
     }
 
 
@@ -52,21 +62,28 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "Bad request",
                     content = @Content) })
     @GetMapping(path = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getUserById(@PathVariable UUID uuid) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable UUID uuid) {
 
         Optional<User> byId = userService.findUserById(uuid);
-        return byId.map(user -> new ResponseEntity<>("" + user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>("User: " + uuid, HttpStatus.NOT_FOUND));
+        if(byId.isPresent()){
+            UserDTO userDTO = userMapper.userToDTO(byId.get());
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); //TODO наверное не не нормально возвращать null, но какое DTO подставить не понятно
 
     }
-
 
     @Operation(summary = "Добавление одного пользователя")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Added users"),
             @ApiResponse(responseCode = "400", description = "Bad request",
                     content = @Content)})
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> saveUser(@RequestBody User user) {
+    public ResponseEntity<String> saveUser(@RequestBody UserDTO userDto) {
+
+        User user = userMapper.dtoToUser(userDto);
         userService.saveUser(user);
         return new ResponseEntity<>("Saved OK UserId: " + user.getId(), HttpStatus.OK);
     }
@@ -78,13 +95,14 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "Bad request",
                     content = @Content)})
     @PutMapping(path = "/{uuid}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateUser(@RequestBody User user, @PathVariable UUID uuid) {
+    public ResponseEntity<String> updateUser(@RequestBody UserDTO userDto) {
 
         try {
+            User user = userMapper.dtoToUser(userDto);
             userService.updateUser(user);
-            return new ResponseEntity<>("Updated OK: " + user.getId(), HttpStatus.OK);
+            return new ResponseEntity<>("Updated OK: " + userDto.getId(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("NOT FOUND : " + user.getId(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("NOT FOUND : " + userDto.getId(), HttpStatus.NOT_FOUND);
         }
     }
 

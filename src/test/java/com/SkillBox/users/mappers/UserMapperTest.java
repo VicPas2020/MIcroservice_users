@@ -3,10 +3,19 @@ package com.SkillBox.users.mappers;
 import com.SkillBox.users.Entity.User;
 import com.SkillBox.users.dto.UserDTO;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+//@SpringBootTest
 class UserMapperTest {
+
+    @Autowired
+    UserMapper userMapper;
+
 
     @Test
     public void shouldMapUserToDto() {
@@ -27,6 +36,7 @@ class UserMapperTest {
 
         //when
         UserDTO userDTO = UserMapper.INSTANCE.userToDTO(user);
+//        UserDTO userDTO = userMapper.userToDTO(user);
 
         //then
         assertThat( userDTO ).isNotNull();
@@ -36,6 +46,7 @@ class UserMapperTest {
 
         //given
         final UserDTO existedUser = new UserDTO(
+                UUID.fromString("039fb3b6-6693-11ed-9022-0242ac120002"),
                 "Petroff",
                 "Ivan",
                 "Sidorovich",

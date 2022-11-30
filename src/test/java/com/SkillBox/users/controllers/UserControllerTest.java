@@ -2,7 +2,6 @@ package com.SkillBox.users.controllers;
 
 import com.SkillBox.users.Entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class UserControllerTest {
 
-//    private final String jsonTest = "{\"id\"=\"039fb3b6-6693-11ed-9022-0242ac120002\", \"firstName\"=\"Petroff\", \"lastName\"=\"Ivan\", \"middleName\"=\"Sidorovich\", \"gender\"=true, \"birthday\"=\"01.01.2000\", \"currentLocation\"=\"Moscow\", \"avatarLink\"=\"http://avatars.com/random/123\", \"personalInfo\"=\"Some personal info\", \"nickname\"=\"Bojor\", \"email\"=\"petroff@mail.ru\", \"phone\"=\"+7(951)125-15-15\", \"isdeleted\"=false}";
-    private final String jsonTest = "User{id=039fb3b6-6693-11ed-9022-0242ac120002, firstName='Petroff', lastName='Ivan', middleName='Sidorovich', gender=true, birthday='01.01.2000', currentLocation='Moscow', avatarLink='http://avatars.com/random/123', personalInfo='Some personal info', nickname='Bojor', email='petroff@mail.ru', phone='+7(951)125-15-15', isdeleted=false}";
+    private final String jsonTest = "{\"id\":\"039fb3b6-6693-11ed-9022-0242ac120002\",\"firstName\":\"Petroff\",\"lastName\":\"Ivan\",\"middleName\":\"Sidorovich\",\"gender\":true,\"birthday\":\"01.01.2000\",\"currentLocation\":\"Moscow\",\"avatarLink\":\"http://avatars.com/random/123\",\"personalInfo\":\"Some personal info\",\"nickname\":\"Bojor\",\"email\":\"petroff@mail.ru\",\"phone\":\"+7(951)125-15-15\",\"deleted\":false}";
 
     private final User existedUser = new User(
             "Petroff",
@@ -98,9 +96,7 @@ class UserControllerTest {
                 .andExpect(content().contentType("application/json"))
                 .andReturn().getResponse().getContentAsString();
 
-        String parsedData = JsonPath.parse(json).json();
-
-        Assertions.assertEquals(jsonTest, parsedData);
+        Assertions.assertEquals(jsonTest, json);
     }
 
     @Test

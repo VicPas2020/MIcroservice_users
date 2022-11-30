@@ -1,7 +1,9 @@
 package com.SkillBox.users.dto;
 
-public class UserDTO {
+import java.util.UUID;
 
+public class UserDTO {
+    private UUID id;
     private String firstName;
     private String lastName;
     private String middleName;
@@ -18,7 +20,8 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String firstName, String lastName, String middleName, Boolean gender, String birthday, String currentLocation, String avatarLink, String personalInfo, String nickname, String email, String phone, Boolean isDeleted) {
+    public UserDTO(UUID id, String firstName, String lastName, String middleName, Boolean gender, String birthday, String currentLocation, String avatarLink, String personalInfo, String nickname, String email, String phone, Boolean isDeleted) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
@@ -31,6 +34,10 @@ public class UserDTO {
         this.email = email;
         this.phone = phone;
         this.isDeleted = isDeleted;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -81,6 +88,9 @@ public class UserDTO {
         return isDeleted;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -133,7 +143,8 @@ public class UserDTO {
     @Override
     public String toString() {
         return "UserDTO{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", gender=" + gender +
