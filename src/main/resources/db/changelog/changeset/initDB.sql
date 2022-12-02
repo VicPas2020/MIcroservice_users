@@ -1,3 +1,6 @@
+CREATE SCHEMA users.users_scheme;
+
+
 DROP TABLE IF EXISTS users_scheme.user_hard_skills;
 DROP TABLE IF EXISTS users_scheme.user_subscriptions;
 DROP TABLE IF EXISTS users_scheme.hard_skills;

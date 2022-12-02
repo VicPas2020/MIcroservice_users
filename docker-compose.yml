@@ -1,16 +1,22 @@
 version: '3'
 
 services:
-  postgres:
-    image: 'postgres:14'
+  app:
+    container_name: 'users-app'
+    image: myapp
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - bbbbb
+
+  bbbbb:
+    image: postgres
     container_name: 'postgres-db'
     environment:
-      - 'POSTGRES_USER=postgres'
-      - 'POSTGRES_PASSWORD=admin'
-      - 'POSTGRES_DB=users'
-
-  app:
-    build: ./
-    container_name: 'users-app'
+      - POSTGRES_USER=test-user
+      - POSTGRES_PASSWORD=test-pass
+      - POSTGRES_DB=users
     ports:
-    - 8080:8080
+      - "5432:5432"
+
