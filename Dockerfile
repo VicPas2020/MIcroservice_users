@@ -8,6 +8,6 @@
 # ИЛИ / ИЛИ - не работают оба.
 
 FROM openjdk:11
-ADD 'build/libs/users -0.0.1-SNAPSHOT.jar' backend.jar
+ADD 'build/libs/users.jar' backend.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "backend.jar"]
