@@ -1,9 +1,9 @@
-#databaseChangeLog:
-#  - changeSet:
-#      id: 2022-11-28-01
-#      author: me
-#      changes:
-#        - sqlFile:
-#            dbms: 'postgres'
-#            path: /db/changelog/changeset/initDB.sql
-#            relativeToChangelogFile: false
+databaseChangeLog:
+  - changeSet:
+      id: 2022-11-28-01
+      author: me
+      changes:
+        - sqlFile:
+            dbms: 'postgres'
+            path: /db/changelog/changeset/initDB.sql
+            relativeToChangelogFile: false
