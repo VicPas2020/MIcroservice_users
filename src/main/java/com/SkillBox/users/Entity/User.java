@@ -15,8 +15,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private UUID id;
+
     @Column(name = "firstname")
     private String firstName;
     @Column(name = "lastname")
@@ -36,7 +36,7 @@ public class User {
     private String email;
     private String phone;
     @Column(name = "isdeleted")
-    private Boolean isDeleted = false;
+    private Boolean isDeleted;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -55,7 +55,7 @@ public class User {
     private Set<User> subscribers;
 
     public User() {
-
+        this.isDeleted = false;
     }
 
     public User(UUID id,
@@ -86,7 +86,18 @@ public class User {
         this.isDeleted = isDeleted;
     }
 
-    public User(String firstName, String lastName, String middleName, Boolean gender, String birthday, String currentLocation, String avatarLink, String personalInfo, String nickname, String email, String phone, Boolean isDeleted) {
+    public User(String firstName,
+                String lastName,
+                String middleName,
+                Boolean gender,
+                String birthday,
+                String currentLocation,
+                String avatarLink,
+                String personalInfo,
+                String nickname,
+                String email,
+                String phone,
+                Boolean isDeleted) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
