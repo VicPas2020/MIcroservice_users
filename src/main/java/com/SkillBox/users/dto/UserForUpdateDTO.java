@@ -2,25 +2,39 @@ package com.SkillBox.users.dto;
 
 import java.util.UUID;
 
-public class UserDTO {
-    private UUID id;
-    private String firstName;
-    private String lastName;
-    private String middleName;
+public class UserForUpdateDTO {
+
+    private UUID    id;
+    private String  firstName;
+    private String  lastName;
+    private String  middleName;
     private Boolean gender;
-    private String birthday;
-    private String currentLocation;
-    private String avatarLink;
-    private String personalInfo;
-    private String nickname;
-    private String email;
-    private String phone;
+    private String  birthday;
+    private String  currentLocation;
+    private String  avatarLink;
+    private String  personalInfo;
+    private String  nickname;
+    private String  email;
+    private String  phone;
     private Boolean isDeleted;
 
-    public UserDTO() {
+    public UserForUpdateDTO() {
+        this.isDeleted = false; // Решает проблему ошибки isDeleted=null в объекте UserForUpdateDTO
     }
 
-    public UserDTO(UUID id, String firstName, String lastName, String middleName, Boolean gender, String birthday, String currentLocation, String avatarLink, String personalInfo, String nickname, String email, String phone, Boolean isDeleted) {
+    public UserForUpdateDTO(UUID id,
+                            String firstName,
+                            String lastName,
+                            String middleName,
+                            Boolean gender,
+                            String birthday,
+                            String currentLocation,
+                            String avatarLink,
+                            String personalInfo,
+                            String nickname,
+                            String email,
+                            String phone,
+                            Boolean isDeleted) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
