@@ -1,10 +1,9 @@
 package com.SkillBox.users.mappers;
 
 import com.SkillBox.users.Entity.User;
-import com.SkillBox.users.dto.UserDTO;
+import com.SkillBox.users.dto.UserForUpdateDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.UUID;
 
@@ -35,17 +34,17 @@ class UserMapperTest {
                 false);
 
         //when
-        UserDTO userDTO = UserMapper.INSTANCE.userToDTO(user);
+        UserForUpdateDTO userForUpdateDTO = UserMapper.INSTANCE.userToDTO(user);
 //        UserDTO userDTO = userMapper.userToDTO(user);
 
         //then
-        assertThat( userDTO ).isNotNull();
-        assertThat( userDTO.getFirstName()).isEqualTo( "Petroff" );
-        assertThat( userDTO.getLastName() ).isEqualTo( "Ivan" );
-        assertThat( userDTO.getCurrentLocation() ).isEqualTo( "Moscow" );
+        assertThat(userForUpdateDTO).isNotNull();
+        assertThat( userForUpdateDTO.getFirstName()).isEqualTo( "Petroff" );
+        assertThat( userForUpdateDTO.getLastName() ).isEqualTo( "Ivan" );
+        assertThat( userForUpdateDTO.getCurrentLocation() ).isEqualTo( "Moscow" );
 
         //given
-        final UserDTO existedUser = new UserDTO(
+        final UserForUpdateDTO existedUser = new UserForUpdateDTO(
                 UUID.fromString("039fb3b6-6693-11ed-9022-0242ac120002"),
                 "Petroff",
                 "Ivan",

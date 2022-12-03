@@ -1,7 +1,8 @@
 package com.SkillBox.users.mappers;
 
 import com.SkillBox.users.Entity.User;
-import com.SkillBox.users.dto.UserDTO;
+import com.SkillBox.users.dto.NewUserForPersistDTO;
+import com.SkillBox.users.dto.UserForUpdateDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -10,6 +11,8 @@ public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class); // for tests
 
-    User dtoToUser(UserDTO userDTO);
-    UserDTO userToDTO(User user);
+    User dtoToUser(NewUserForPersistDTO newUserForPersistDTO);
+    User dtoToUser(UserForUpdateDTO userForUpdateDTO);
+
+    UserForUpdateDTO userToDTO(User user);
 }
