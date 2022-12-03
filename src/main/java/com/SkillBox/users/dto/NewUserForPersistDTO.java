@@ -1,5 +1,10 @@
 package com.SkillBox.users.dto;
 
+import com.SkillBox.users.Entity.HardSkills;
+import com.SkillBox.users.Entity.User;
+
+import java.util.Set;
+
 public class NewUserForPersistDTO {
     private String firstName;
     private String lastName;
@@ -13,11 +18,12 @@ public class NewUserForPersistDTO {
     private String email;
     private String phone;
     private Boolean isDeleted;
+    private Set<HardSkills> skills;
+    private Set<User> subscribers;
 
     public NewUserForPersistDTO() {
         this.isDeleted = false; // Решает проблему ошибки isDeleted=null в объекте UserForUpdateDTO
     }
-
 
     public String getFirstName() {
         return firstName;

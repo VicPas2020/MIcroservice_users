@@ -1,5 +1,9 @@
 package com.SkillBox.users.dto;
 
+import com.SkillBox.users.Entity.HardSkills;
+import com.SkillBox.users.Entity.User;
+
+import java.util.Set;
 import java.util.UUID;
 
 public class UserForUpdateDTO {
@@ -17,6 +21,26 @@ public class UserForUpdateDTO {
     private String  email;
     private String  phone;
     private Boolean isDeleted;
+    private Set<HardSkills> skills;
+    private Set<User> subscribers;
+
+
+
+//    public Set<User> getSubscribers() {
+//        return subscribers;
+//    }
+//
+//    public void setSubscribers(Set<User> subscribers) {
+//        this.subscribers = subscribers;
+//    }
+//
+//    public Set<HardSkills> getSkills() {
+//        return skills;
+//    }
+//
+//    public void setSkills(Set<HardSkills> skills) {
+//        this.skills = skills;
+//    }
 
     public UserForUpdateDTO() {
         this.isDeleted = false; // Решает проблему ошибки isDeleted=null в объекте UserForUpdateDTO

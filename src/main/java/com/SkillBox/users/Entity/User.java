@@ -114,19 +114,6 @@ public class User {
 
     public User(String firstName) {
         this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.currentLocation = currentLocation;
-        this.avatarLink = avatarLink;
-        this.personalInfo = personalInfo;
-        this.nickname = nickname;
-        this.email = email;
-        this.phone = phone;
-        this.skills = skills;
-        this.subscribers = subscribers;
-        this.isDeleted = isDeleted;
     }
 
     public UUID getId() {
