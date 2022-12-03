@@ -1,7 +1,8 @@
 package com.SkillBox.users.controllers;
 
 import com.SkillBox.users.Entity.User;
-import com.SkillBox.users.dto.UserDTO;
+import com.SkillBox.users.dto.NewUserForPersistDTO;
+import com.SkillBox.users.dto.UserForUpdateDTO;
 import com.SkillBox.users.mappers.UserMapper;
 import com.SkillBox.users.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,10 +43,12 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Users not found",
                     content = @Content) })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
+    public ResponseEntity<List<UserForUpdateDTO>> getAllUsers() {
 
         List<User> all = userService.findAllUsers();
-        List<UserDTO> allDto = new ArrayList<>();
+        List<UserForUpdateDTO> allDto = new ArrayList<>();
+
+        if(all.size()==0) {return new ResponseEntity<>(allDto, HttpStatus.NOT_FOUND);}
 
         for (User dto: all) {
             allDto.add(userMapper.userToDTO(dto));
@@ -62,16 +65,15 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "Bad request",
                     content = @Content) })
     @GetMapping(path = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDTO> getUserById(@PathVariable UUID uuid) {
+    public ResponseEntity<UserForUpdateDTO> getUserById(@PathVariable UUID uuid) {
 
         Optional<User> byId = userService.findUserById(uuid);
         if(byId.isPresent()){
-            UserDTO userDTO = userMapper.userToDTO(byId.get());
-            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+            UserForUpdateDTO userForUpdateDTO = userMapper.userToDTO(byId.get());
+            return new ResponseEntity<>(userForUpdateDTO, HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); //TODO наверное не не нормально возвращать null, но какое DTO подставить не понятно
-
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     @Operation(summary = "Добавление одного пользователя")
@@ -81,9 +83,9 @@ public class UserController {
                     content = @Content)})
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> saveUser(@RequestBody UserDTO userDto) {
+    public ResponseEntity<String> saveUser(@RequestBody NewUserForPersistDTO newUserForPersistDTO) {
 
-        User user = userMapper.dtoToUser(userDto);
+        User user = userMapper.dtoToUser(newUserForPersistDTO);
         userService.saveUser(user);
         return new ResponseEntity<>("Saved OK UserId: " + user.getId(), HttpStatus.OK);
     }
@@ -94,16 +96,19 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Changed users"),
             @ApiResponse(responseCode = "400", description = "Bad request",
                     content = @Content)})
-    @PutMapping(path = "/{uuid}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateUser(@RequestBody UserDTO userDto) {
+    @PutMapping(path = "/{uuid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateUser(@RequestBody UserForUpdateDTO userForUpdateDto/*, @PathVariable UUID uuid*/) throws Exception {
 
-        try {
-            User user = userMapper.dtoToUser(userDto);
+        Optional<User> byId = userService.findUserById(userForUpdateDto.getId());
+
+        if(byId.isPresent()){
+            User user = UserMapper.INSTANCE.dtoToUser(userForUpdateDto);
             userService.updateUser(user);
-            return new ResponseEntity<>("Updated OK: " + userDto.getId(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("NOT FOUND : " + userDto.getId(), HttpStatus.NOT_FOUND);
+
+            return new ResponseEntity<>("User updated: " + userForUpdateDto.getId(), HttpStatus.OK);
         }
+
+        return new ResponseEntity<>("User NOT FOUND: " + userForUpdateDto.getId(), HttpStatus.NOT_FOUND);
     }
 
     @Operation(summary = "Удаление одного пользователя по id")
