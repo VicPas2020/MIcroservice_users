@@ -21,13 +21,13 @@
 #      - "5432:5432"
 
 
-version: '2'
+version: '3'
 
 services:
   app:
     image: 'myapp:latest'
-    build:
-      context: .
+    build: ./
+#      context: .
     container_name: app
     depends_on:
       - db
@@ -35,7 +35,8 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/users
       - SPRING_DATASOURCE_USERNAME=test-user
       - SPRING_DATASOURCE_PASSWORD=test-pass
-#      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+    ports:
+    - "8080:8080"
 
   db:
     image: 'library/postgres:14'
@@ -44,5 +45,9 @@ services:
       - POSTGRES_USER=test-user
       - POSTGRES_PASSWORD=test-pass
       - POSTGRES_DB=users
+    volumes:
+      - web_data:/var/lib/postgresql/data
 
+volumes:
+  web_data:
 
