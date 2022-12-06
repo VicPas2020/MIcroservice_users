@@ -33,7 +33,3 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-
-//test {
-//	exclude 'com/SkillBox/users/**'
-//}
