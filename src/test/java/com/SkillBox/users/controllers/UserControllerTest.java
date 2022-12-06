@@ -1,6 +1,8 @@
 package com.SkillBox.users.controllers;
 
 import com.SkillBox.users.Entity.User;
+import com.SkillBox.users.UsersApplication;
+import com.SkillBox.users.testcontainers.config.ContainersEnvironment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -18,9 +21,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
+@ActiveProfiles("test")
+@SpringBootTest(classes = UsersApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 @AutoConfigureMockMvc
-class UserControllerTest {
+class UserControllerTest extends ContainersEnvironment {
 
     private final String jsonTest = "{\"id\":\"039fb3b6-6693-11ed-9022-0242ac120002\",\"firstName\":\"Petroff\",\"lastName\":\"Ivan\",\"middleName\":\"Sidorovich\",\"gender\":true,\"birthday\":\"01.01.2000\",\"currentLocation\":\"Moscow\",\"avatarLink\":\"http://avatars.com/random/123\",\"personalInfo\":\"Some personal info\",\"nickname\":\"Bojor\",\"email\":\"petroff@mail.ru\",\"phone\":\"+7(951)125-15-15\",\"deleted\":false}";
 
