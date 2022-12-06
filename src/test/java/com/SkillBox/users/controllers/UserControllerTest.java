@@ -2,6 +2,7 @@ package com.SkillBox.users.controllers;
 
 import com.SkillBox.users.Entity.User;
 import com.SkillBox.users.UsersApplication;
+import com.SkillBox.users.repository.UserRepository;
 import com.SkillBox.users.testcontainers.config.ContainersEnvironment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -13,7 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -64,6 +68,16 @@ class UserControllerTest extends ContainersEnvironment {
     @Autowired
     private MockMvc mockMvc;
 
+
+    // тест репозитория в контейнере
+    @Autowired
+    private UserRepository productRepository;
+
+    @Test
+    public void When_GetAllUsers_Expect_ThreeUsers(){
+        List<User> list = productRepository.findAll();
+        assertEquals(3, list.size());
+    }
 
     // проверяется создание контроллера
     @Autowired

@@ -1,7 +1,5 @@
 package com.SkillBox.users.testcontainers.containers;
 
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 public class PostgresTestContainer extends PostgreSQLContainer<PostgresTestContainer> {
@@ -14,7 +12,6 @@ public class PostgresTestContainer extends PostgreSQLContainer<PostgresTestConta
         super(IMAGE_VERSION);
     }
 
-    @Rule
     public static PostgreSQLContainer getInstance() {
         if (container == null) {
             container = new PostgresTestContainer().withDatabaseName(DATABASE_NAME);
@@ -25,8 +22,6 @@ public class PostgresTestContainer extends PostgreSQLContainer<PostgresTestConta
     @Override
     public void start() {
         super.start();
-        System.out.println("_------------------------------------------------------------------");
-        System.out.println(container.getContainerId());
         System.setProperty("DB_URL", container.getJdbcUrl());
         System.setProperty("DB_USERNAME", container.getUsername());
         System.setProperty("DB_PASSWORD", container.getPassword());
