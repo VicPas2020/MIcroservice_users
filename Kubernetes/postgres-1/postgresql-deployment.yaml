@@ -23,11 +23,11 @@ spec:
           imagePullPolicy: "IfNotPresent"
           env:
             - name: POSTGRES_DB
-              value: northwind
+              value: users
             - name: POSTGRES_USER
-              value: postgres
+              value: test-user
             - name: POSTGRES_PASSWORD
-              value: changeme
+              value: test-pass
           ports:
             - containerPort: 5432
               name: postgresql

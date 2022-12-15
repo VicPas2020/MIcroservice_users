@@ -13,16 +13,16 @@ spec:
         app: order-svc
     spec:
       containers:
-       - image: vicpas/ord:v1
+       - image: vicpas/my_app_rest_on_nub:v1
          name: order-svc
          ports:
            - containerPort: 8080
          env:
             - name: SPRING_DATASOURCE_PASSWORD
-              value: changeme
+              value: test-pass
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://postgresql:5432/northwind?useSSL=false
+              value: jdbc:postgresql://postgresql:5432/users?useSSL=false
             - name: SPRING_DATASOURCE_USERNAME
-              value: postgres
+              value: test-user
             - name: SPRING_JPA_HIBERNATE_DDL_AUTO
               value: update
