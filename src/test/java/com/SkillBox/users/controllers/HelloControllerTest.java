@@ -1,6 +1,8 @@
 package com.SkillBox.users.controllers;
 
+import com.SkillBox.users.UsersApplication;
 import com.SkillBox.users.service.HelloService;
+import com.SkillBox.users.testcontainers.config.ContainersEnvironment;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -20,10 +23,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
+@SpringBootTest(classes = UsersApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 
-class HelloControllerTest {
+class HelloControllerTest extends ContainersEnvironment {
 
     @Autowired
     private MockMvc mockMvc;
