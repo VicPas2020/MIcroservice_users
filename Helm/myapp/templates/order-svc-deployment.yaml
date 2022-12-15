@@ -13,7 +13,7 @@ spec:
         app: order-svc
     spec:
       containers:
-       - image: vicpas/my_app_rest_on_nub:v1
+       - image: {{ .Values.image }}
          name: order-svc
          ports:
            - containerPort: 8080
